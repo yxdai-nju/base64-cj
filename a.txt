@@ -1,0 +1,2333 @@
+.
+├── .gitignore
+├── AppScope
+│   ├── app.json5
+│   └── resources
+│       └── base
+│           ├── element
+│           │   └── string.json
+│           └── media
+│               └── layered_image.json
+├── build-profile.json5
+├── CHANGELOG.md
+├── code-linter.json5
+├── entry
+│   ├── .gitignore
+│   ├── build-profile.json5
+│   ├── hvigorfile.ts
+│   ├── obfuscation-rules.txt
+│   ├── oh-package.json5
+│   └── src
+│       ├── main
+│       │   ├── ets
+│       │   │   ├── entryability
+│       │   │   │   └── EntryAbility.ets
+│       │   │   ├── entrybackupability
+│       │   │   │   └── EntryBackupAbility.ets
+│       │   │   └── pages
+│       │   │       ├── Base64Example.ets
+│       │   │       ├── Base64JsExample.ets
+│       │   │       ├── CangjieBase64Example.ets
+│       │   │       ├── CangjieBase64Utf8Example.ets
+│       │   │       ├── common
+│       │   │       │   ├── base64.js
+│       │   │       │   └── Unit8ArrayUtils.ets
+│       │   │       ├── Index.ets
+│       │   │       └── OhosBase64Example.ets
+│       │   ├── module.json5
+│       │   └── resources
+│       │       ├── base
+│       │       │   ├── element
+│       │       │   │   ├── color.json
+│       │       │   │   ├── float.json
+│       │       │   │   └── string.json
+│       │       │   ├── media
+│       │       │   │   └── layered_image.json
+│       │       │   └── profile
+│       │       │       ├── backup_config.json
+│       │       │       └── main_pages.json
+│       │       └── dark
+│       │           └── element
+│       │               └── color.json
+│       ├── mock
+│       │   └── mock-config.json5
+│       ├── ohosTest
+│       │   ├── ets
+│       │   │   └── test
+│       │   │       ├── Ability.test.ets
+│       │   │       └── List.test.ets
+│       │   └── module.json5
+│       └── test
+│           ├── List.test.ets
+│           └── LocalUnit.test.ets
+├── hvigor
+│   └── hvigor-config.json5
+├── hvigorfile.ts
+├── library
+│   ├── .gitignore
+│   ├── build-profile.json5
+│   ├── BuildProfile.ets
+│   ├── CHANGELOG.md
+│   ├── consumer-rules.txt
+│   ├── hvigorfile.ts
+│   ├── Index.ets
+│   ├── obfuscation-rules.txt
+│   ├── oh-package.json5
+│   ├── README.md
+│   └── src
+│       ├── main
+│       │   ├── cangjie
+│       │   │   ├── ark_interop_api
+│       │   │   │   ├── ark_interop_api.d.ts
+│       │   │   │   └── oh-package.json5
+│       │   │   ├── cjpm.lock
+│       │   │   ├── cjpm.toml
+│       │   │   ├── index.cj
+│       │   │   ├── loader
+│       │   │   │   ├── libark_interop_loader.d.ts
+│       │   │   │   └── oh-package.json5
+│       │   │   └── types
+│       │   │       └── libcangjie_base64
+│       │   │           ├── Index.d.ts
+│       │   │           └── oh-package.json5
+│       │   ├── ets
+│       │   │   └── components
+│       │   │       └── MainPage.ets
+│       │   ├── module.json5
+│       │   └── resources
+│       │       └── base
+│       │           └── element
+│       │               └── string.json
+│       ├── ohosTest
+│       │   ├── ets
+│       │   │   └── test
+│       │   │       ├── Ability.test.ets
+│       │   │       └── List.test.ets
+│       │   └── module.json5
+│       └── test
+│           ├── List.test.ets
+│           └── LocalUnit.test.ets
+├── oh-package.json5
+└── README.md
+
+.gitignore
+
+ 1 | /node_modules
+ 2 | /oh_modules
+ 3 | /local.properties
+ 4 | /.idea
+ 5 | **/build
+ 6 | /.hvigor
+ 7 | .cxx
+ 8 | /.clangd
+ 9 | /.clang-format
+10 | /.clang-tidy
+11 | **/.test
+12 | /.appanalyzer
+13 | **/cj_res
+14 | **/*.cj.macrocall
+15 | **/ability_mainability_entry.cj
+16 | **/module_**_entry.cj
+17 | oh-package-lock.json5
+18 | **/IDL_Dependencies_List~
+19 | **/build-script-cache
+20 | /.idea/
+21 | /.hvigor/
+22 | /.vscode/
+--------------------------------------------------------------------------------
+
+AppScope/app.json5
+
+ 1 | {
+ 2 |   "app": {
+ 3 |     "bundleName": "com.cangjie.hybrid.base64",
+ 4 |     "vendor": "example",
+ 5 |     "versionCode": 1000000,
+ 6 |     "versionName": "1.0.0",
+ 7 |     "icon": "$media:layered_image",
+ 8 |     "label": "$string:app_name"
+ 9 |   }
+10 | }
+--------------------------------------------------------------------------------
+
+AppScope/resources/base/element/string.json
+
+1 | {
+2 |   "string": [
+3 |     {
+4 |       "name": "app_name",
+5 |       "value": "base64"
+6 |     }
+7 |   ]
+8 | }
+--------------------------------------------------------------------------------
+
+AppScope/resources/base/media/layered_image.json
+
+1 | {
+2 |   "layered-image":
+3 |   {
+4 |     "background" : "$media:background",
+5 |     "foreground" : "$media:foreground"
+6 |   }
+7 | }
+--------------------------------------------------------------------------------
+
+CHANGELOG.md
+
+1 | ## 1.0.0
+2 | 
+3 | - 支持 ArkTS 调用 Cangjie 版 base64 编解码
+4 | 
+--------------------------------------------------------------------------------
+
+README.md
+
+  1 | <div align="center">
+  2 | <h1>base64-cj</h1>
+  3 | </div>
+  4 | 
+  5 | <p align="center">
+  6 | <img alt="" src="https://img.shields.io/badge/release-v1.0.0-brightgreen" style="display: inline-block;" />
+  7 | <img alt="" src="https://img.shields.io/badge/build-pass-brightgreen" style="display: inline-block;" />
+  8 | <img alt="" src="https://img.shields.io/badge/cjc-v0.53.20-brightgreen" style="display: inline-block;" />
+  9 | <img alt="" src="https://img.shields.io/badge/cjcov-NA-brightgreen" style="display: inline-block;" />
+ 10 | <img alt="" src="https://img.shields.io/badge/project-open-brightgreen" style="display: inline-block;" />
+ 11 | </p>
+ 12 | 
+ 13 | ## 介绍
+ 14 | 
+ 15 | ArkTS 调用 Cangjie 版 base64 编解码算法实现。
+ 16 | 
+ 17 | ## 特性
+ 18 | 
+ 19 | - 支持 ArkTS 调用 Cangjie 版 base64 编解码
+ 20 | 
+ 21 | ### 源码目录
+ 22 | 
+ 23 | ```shell
+ 24 | ├─ AppScope
+ 25 | ├─ entry                 # 示例代码
+ 26 | ├─ hvigor                # 构建工具             
+ 27 | ├─ library               # 源码文件夹                   
+ 28 | │  └─ src
+ 29 | │      └─ main
+ 30 | │          ├─ cangjie    # cangjie 和 ArkTS 互操作代码
+ 31 | │          ├─ ets        # ets 对外接口
+ 32 | │          └─ resources
+ 33 | └─ README.md             # 库使用介绍
+ 34 | ```
+ 35 | ## 接口说明
+ 36 | 
+ 37 | ```
+ 38 | /*
+ 39 |  * 将 ArrayBuffer 数据转换为 base64。
+ 40 |  * 
+ 41 |  * 参数 data - 原始数据
+ 42 |  * 返回值 string - base64 数据
+ 43 |  */
+ 44 | function encode_Uint8Array(data: ArrayBuffer): string 
+ 45 | 
+ 46 | /*
+ 47 |  * 将 base64 数据转换为 ArrayBuffer
+ 48 |  * 
+ 49 |  * 参数 data - base64 数据
+ 50 |  * 返回值 ArrayBuffer - 原始数据
+ 51 |  */
+ 52 | function decode_Uint8Array(data: ArrayBuffer): ArrayBuffer
+ 53 | 
+ 54 | /*
+ 55 |  * 将 string 类型数据转换为 base64。
+ 56 |  * 
+ 57 |  * 参数 data - 原始数据
+ 58 |  * 返回值 string - base64 数据
+ 59 |  */
+ 60 | function encode_String(data: string): string
+ 61 | 
+ 62 | /*
+ 63 |  * 将 base64 数据转换为 string 数据。
+ 64 |  * 
+ 65 |  * 参数 data - base64 数据
+ 66 |  * 返回值 string - 原始数据
+ 67 |  */
+ 68 | function decode_string(data: string): string
+ 69 | 
+ 70 | /*
+ 71 |  * 将 base64 数据转换为 ArrayBuffer 数据。
+ 72 |  * 
+ 73 |  * 参数 data - base64 数据
+ 74 |  * 返回值 ArrayBuffer - 原始数据
+ 75 |  */
+ 76 | function decode_String_toUint8Array(data: string): ArrayBuffer
+ 77 | ```
+ 78 | 
+ 79 | ## 使用说明
+ 80 | 
+ 81 | 1. 通过中心仓下载安装
+ 82 | 
+ 83 |     ```text
+ 84 |     ohpm install @cangjie-tpc/base64
+ 85 |     ```
+ 86 | 
+ 87 | 2. 通过 module 引入
+ 88 |     1. 克隆下载项目。
+ 89 |     2. 将 library 模块拷贝到应用项目下。
+ 90 |     3. 修改自身应用 entry 下的 oh-package.json5 文件，在 dependencies 字段添加：
+ 91 |       ```json
+ 92 |       {
+ 93 |          "dependencies": {
+ 94 |             "@cangjie-tpc/base64": "file:../library"
+ 95 |          }
+ 96 |       }
+ 97 |       ```
+ 98 |     4. 在项目中使用以下方式引入：
+ 99 |       ```cangjie
+100 |       import { encode_String, decode_string, encode_Uint8Array, decode_Uint8Array, decode_String_toUint8Array } from "@cangjie-tpc/base64cj"
+101 |       ```
+102 | ## 功能示例
+103 | 
+104 | encode_String 和 decode_string 使用如下：
+105 | 
+106 | ```ets
+107 | import { encode_String, decode_string } from "@cangjie-tpc/base64cj"
+108 | @Entry
+109 | @Component
+110 | struct CangjieBase64Example {
+111 |   private data: string = "hello cangjie"
+112 |   @State encodeResult: string = ''
+113 |   @State decodeResult: string = ''
+114 |     
+115 |   build() {
+116 |     Row() {
+117 |       Column() {
+118 |         Button("encode")
+119 |           .width(200)
+120 |           .onClick((event: ClickEvent) => {
+121 |              hilog.error(0x0000, 'CangjieBase64String', '%{public}s', `原数据: ${this.data}`);
+122 |              this.encodeResult = encode_String(this.data)
+123 |              hilog.error(0x0000, 'CangjieBase64String', '%{public}s', `encode: ${this.encodeResult}`);
+124 |           }).margin(10)
+125 |                 
+126 |         Button("decode")
+127 |           .width(200)
+128 |           .onClick((event: ClickEvent) => {
+129 |              hilog.error(0x0000, 'CangjieBase64String', '%{public}s', `原数据: ${this.encodeResult}`);
+130 |              this.decodeResult = decode_string(this.encodeResult)
+131 |              hilog.error(0x0000, 'CangjieBase64String', '%{public}s', `decode: ${this.decodeResult}`);
+132 |           }).margin(10)    
+133 | 
+134 |       }
+135 |       .width('100%')
+136 |     }
+137 |     .height('100%')
+138 |   }
+139 | }
+140 | ```
+141 | 
+142 | encode_Uint8Array 和 decode_Uint8Array 使用如下：
+143 | 
+144 | ```ets
+145 | import { encode_Uint8Array, decode_String_toUint8Array } from "@cangjie-tpc/base64cj"
+146 | @Entry
+147 | @Component
+148 | struct CangjieBase64Example {
+149 |   private data: ArrayBuffer = Unit8ArrayUtils.StringToArrayBuffer("hello cangjie")
+150 |   @State encodeResult: string = ''
+151 |     
+152 |   build() {
+153 |     Row() {
+154 |       Column() {
+155 |         Button("encode")
+156 |           .width(200)
+157 |           .onClick((event: ClickEvent) => {
+158 |              this.encodeResult = encode_Uint8Array(this.data)
+159 |           }).margin(10)
+160 |                 
+161 |         Button("decode")
+162 |           .width(200)
+163 |           .onClick((event: ClickEvent) => {
+164 |              const decodeResult = decode_String_toUint8Array(this.encodeResult)
+165 |           }).margin(10)    
+166 | 
+167 |       }
+168 |       .width('100%')
+169 |     }
+170 |     .height('100%')
+171 |   }
+172 | }
+173 | ```
+174 | 
+175 | ## 约束与限制
+176 | 
+177 | 在下述版本验证通过：
+178 | 
+179 |     DevEco Studio 5.0.13.210
+180 |     Cangjie Support Plugin 5.0.13.210
+181 | 
+182 | ## 开源协议
+183 | 
+184 | 本项目基于 [Apache License 2.0](./LICENSE)，请自由的享受和参与开源。
+185 | 
+186 | ## 参与贡献
+187 | 
+188 | 欢迎给我们提交 PR，欢迎给我们提交 Issue，欢迎参与任何形式的贡献。
+--------------------------------------------------------------------------------
+
+build-profile.json5
+
+ 1 | {
+ 2 |   "app": {
+ 3 |     "signingConfigs": [],
+ 4 |     "products": [
+ 5 |       {
+ 6 |         "name": "default",
+ 7 |         "signingConfig": "default",
+ 8 |         "targetSdkVersion": "6.0.2(22)",
+ 9 |         "compatibleSdkVersion": "6.0.2(22)",
+10 |         "runtimeOS": "HarmonyOS",
+11 |         "buildOption": {
+12 |           "strictMode": {
+13 |             "caseSensitiveCheck": true,
+14 |             "useNormalizedOHMUrl": true
+15 |           }
+16 |         }
+17 |       }
+18 |     ],
+19 |     "buildModeSet": [
+20 |       {
+21 |         "name": "debug",
+22 |       },
+23 |       {
+24 |         "name": "release"
+25 |       }
+26 |     ]
+27 |   },
+28 |   "modules": [
+29 |     {
+30 |       "name": "entry",
+31 |       "srcPath": "./entry",
+32 |       "targets": [
+33 |         {
+34 |           "name": "default",
+35 |           "applyToProducts": [
+36 |             "default"
+37 |           ]
+38 |         }
+39 |       ]
+40 |     },
+41 |     {
+42 |       "name": "library",
+43 |       "srcPath": "./library",
+44 |     }
+45 |   ]
+46 | }
+--------------------------------------------------------------------------------
+
+code-linter.json5
+
+ 1 | {
+ 2 |   "files": [
+ 3 |     "**/*.ets"
+ 4 |   ],
+ 5 |   "ignore": [
+ 6 |     "**/src/ohosTest/**/*",
+ 7 |     "**/src/test/**/*",
+ 8 |     "**/src/mock/**/*",
+ 9 |     "**/node_modules/**/*",
+10 |     "**/oh_modules/**/*",
+11 |     "**/build/**/*",
+12 |     "**/.preview/**/*"
+13 |   ],
+14 |   "ruleSet": [
+15 |     "plugin:@performance/recommended",
+16 |     "plugin:@typescript-eslint/recommended"
+17 |   ],
+18 |   "rules": {
+19 |     "@security/no-unsafe-aes": "error",
+20 |     "@security/no-unsafe-hash": "error",
+21 |     "@security/no-unsafe-mac": "warn",
+22 |     "@security/no-unsafe-dh": "error",
+23 |     "@security/no-unsafe-dsa": "error",
+24 |     "@security/no-unsafe-ecdsa": "error",
+25 |     "@security/no-unsafe-rsa-encrypt": "error",
+26 |     "@security/no-unsafe-rsa-sign": "error",
+27 |     "@security/no-unsafe-rsa-key": "error",
+28 |     "@security/no-unsafe-dsa-key": "error",
+29 |     "@security/no-unsafe-dh-key": "error",
+30 |     "@security/no-unsafe-3des": "error"
+31 |   }
+32 | }
+--------------------------------------------------------------------------------
+
+entry/.gitignore
+
+1 | /node_modules
+2 | /oh_modules
+3 | /.preview
+4 | /build
+5 | /.cxx
+6 | /.test
+--------------------------------------------------------------------------------
+
+entry/build-profile.json5
+
+ 1 | {
+ 2 |   "apiType": "stageMode",
+ 3 |   "buildOption": {
+ 4 |   },
+ 5 |   "buildOptionSet": [
+ 6 |     {
+ 7 |       "name": "release",
+ 8 |       "arkOptions": {
+ 9 |         "obfuscation": {
+10 |           "ruleOptions": {
+11 |             "enable": false,
+12 |             "files": [
+13 |               "./obfuscation-rules.txt"
+14 |             ]
+15 |           }
+16 |         }
+17 |       }
+18 |     },
+19 |   ],
+20 |   "targets": [
+21 |     {
+22 |       "name": "default"
+23 |     },
+24 |     {
+25 |       "name": "ohosTest",
+26 |     }
+27 |   ]
+28 | }
+--------------------------------------------------------------------------------
+
+entry/hvigorfile.ts
+
+1 | import { hapTasks } from '@ohos/cangjie-build-support';
+2 | 
+3 | export default {
+4 |     system: hapTasks,  /* Built-in plugin of Hvigor. It cannot be modified. */
+5 |     plugins:[]         /* Custom plugin to extend the functionality of Hvigor. */
+6 | }
+--------------------------------------------------------------------------------
+
+entry/obfuscation-rules.txt
+
+ 1 | # Define project specific obfuscation rules here.
+ 2 | # You can include the obfuscation configuration files in the current module's build-profile.json5.
+ 3 | #
+ 4 | # For more details, see
+ 5 | #   https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/source-obfuscation-V5
+ 6 | 
+ 7 | # Obfuscation options:
+ 8 | # -disable-obfuscation: disable all obfuscations
+ 9 | # -enable-property-obfuscation: obfuscate the property names
+10 | # -enable-toplevel-obfuscation: obfuscate the names in the global scope
+11 | # -compact: remove unnecessary blank spaces and all line feeds
+12 | # -remove-log: remove all console.* statements
+13 | # -print-namecache: print the name cache that contains the mapping from the old names to new names
+14 | # -apply-namecache: reuse the given cache file
+15 | 
+16 | # Keep options:
+17 | # -keep-property-name: specifies property names that you want to keep
+18 | # -keep-global-name: specifies names that you want to keep in the global scope
+19 | 
+20 | -enable-property-obfuscation
+21 | -enable-toplevel-obfuscation
+22 | -enable-filename-obfuscation
+23 | -enable-export-obfuscation
+--------------------------------------------------------------------------------
+
+entry/oh-package.json5
+
+ 1 | {
+ 2 |   "name": "entry",
+ 3 |   "version": "1.0.0",
+ 4 |   "description": "Please describe the basic information.",
+ 5 |   "main": "",
+ 6 |   "author": "",
+ 7 |   "license": "",
+ 8 |   "dependencies": {
+ 9 |     "@cangjie-tpc/base64": "file:../library"
+10 |   }
+11 | }
+12 | 
+--------------------------------------------------------------------------------
+
+entry/src/main/ets/entryability/EntryAbility.ets
+
+ 1 | import { AbilityConstant, ConfigurationConstant, UIAbility, Want } from '@kit.AbilityKit';
+ 2 | import { hilog } from '@kit.PerformanceAnalysisKit';
+ 3 | import { window } from '@kit.ArkUI';
+ 4 | 
+ 5 | const DOMAIN = 0x0000;
+ 6 | 
+ 7 | export default class EntryAbility extends UIAbility {
+ 8 |   onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+ 9 |     this.context.getApplicationContext().setColorMode(ConfigurationConstant.ColorMode.COLOR_MODE_NOT_SET);
+10 |     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onCreate');
+11 |   }
+12 | 
+13 |   onDestroy(): void {
+14 |     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onDestroy');
+15 |   }
+16 | 
+17 |   onWindowStageCreate(windowStage: window.WindowStage): void {
+18 |     // Main window is created, set main page for this ability
+19 |     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
+20 | 
+21 |     windowStage.loadContent('pages/Index', (err) => {
+22 |       if (err.code) {
+23 |         hilog.error(DOMAIN, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err));
+24 |         return;
+25 |       }
+26 |       hilog.info(DOMAIN, 'testTag', 'Succeeded in loading the content.');
+27 |     });
+28 |   }
+29 | 
+30 |   onWindowStageDestroy(): void {
+31 |     // Main window is destroyed, release UI related resources
+32 |     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onWindowStageDestroy');
+33 |   }
+34 | 
+35 |   onForeground(): void {
+36 |     // Ability has brought to foreground
+37 |     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onForeground');
+38 |   }
+39 | 
+40 |   onBackground(): void {
+41 |     // Ability has back to background
+42 |     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onBackground');
+43 |   }
+44 | }
+--------------------------------------------------------------------------------
+
+entry/src/main/ets/entrybackupability/EntryBackupAbility.ets
+
+ 1 | import { hilog } from '@kit.PerformanceAnalysisKit';
+ 2 | import { BackupExtensionAbility, BundleVersion } from '@kit.CoreFileKit';
+ 3 | 
+ 4 | const DOMAIN = 0x0000;
+ 5 | 
+ 6 | export default class EntryBackupAbility extends BackupExtensionAbility {
+ 7 |   async onBackup() {
+ 8 |     hilog.info(DOMAIN, 'testTag', 'onBackup ok');
+ 9 |     await Promise.resolve();
+10 |   }
+11 | 
+12 |   async onRestore(bundleVersion: BundleVersion) {
+13 |     hilog.info(DOMAIN, 'testTag', 'onRestore ok %{public}s', JSON.stringify(bundleVersion));
+14 |     await Promise.resolve();
+15 |   }
+16 | }
+--------------------------------------------------------------------------------
+
+entry/src/main/ets/pages/Base64Example.ets
+
+ 1 | /*
+ 2 |  * Copyright (c) Huawei Technologies Co., Ltd. 2022-2024. All rights resvered.
+ 3 |  */
+ 4 | import { systemDateTime } from '@kit.BasicServicesKit'
+ 5 | import { hilog } from '@kit.PerformanceAnalysisKit';
+ 6 | import { atob, btoa } from './common/base64';
+ 7 | 
+ 8 | @Entry
+ 9 | @Component
+10 | struct Base64Example {
+11 |   private data: string = "hello cangjie"
+12 |   @State encodeResult: string = ''
+13 |   @State decodeResult: string = ''
+14 | 
+15 |   private testEncodeString(count: number, str: string): void {
+16 |     const start = systemDateTime.getTime(true)
+17 |     hilog.error(0x0000, 'Base64', '%{public}s', `Base64Encode______1`);
+18 |     for (let i = 0; i < count; i++) {
+19 |       this.encodeResult = btoa(str)
+20 |     }
+21 |     const end = systemDateTime.getTime(true)
+22 |     hilog.error(0x0000, 'Base64', '%{public}s', `Base64Encode______${count}: ${(end - start) / count}ns/op`);
+23 |   }
+24 |   private testDecodeString(count: number, str: string): void {
+25 |     const start = systemDateTime.getTime(true)
+26 |     for (let i = 0; i < count; i++) {
+27 |       this.decodeResult = atob(str)
+28 |     }
+29 |     const end = systemDateTime.getTime(true)
+30 |     hilog.error(0x0000, 'Base64', '%{public}s', `Base64Decode______${count}: ${(end - start) / count}ns/op`);
+31 |   }
+32 | 
+33 |   build() {
+34 |     Row() {
+35 |       Column() {
+36 |         Text("Base64Example").fontSize(16)
+37 | 
+38 |         Button("encode_10")
+39 |           .width(200)
+40 |           .onClick((event: ClickEvent) => {
+41 |             // this.testEncodeString(10, this.data)
+42 |             this.encodeResult = btoa(this.data)
+43 |             hilog.error(0x0000, 'Base64', '%{public}s', `Base64Encode______111${this.encodeResult}`);
+44 |           }).margin(10)
+45 |         Button("encode_100")
+46 |           .width(200)
+47 |           .onClick((event: ClickEvent) => {
+48 |             this.testEncodeString(100, this.data)
+49 |           }).margin(10)
+50 |         Button("encode_1000")
+51 |           .width(200)
+52 |           .onClick((event: ClickEvent) => {
+53 |             this.testEncodeString(1000, this.data)
+54 |           }).margin(10)
+55 |         Button("encode_10000")
+56 |           .width(200)
+57 |           .onClick((event: ClickEvent) => {
+58 |             this.testEncodeString(10000, this.data)
+59 |           }).margin(10)
+60 |         //------------------
+61 |         Button("decode_10")
+62 |           .width(200)
+63 |           .onClick((event: ClickEvent) => {
+64 |             this.testDecodeString(10, this.encodeResult)
+65 |           }).margin(10)
+66 |         Button("decode_100")
+67 |           .width(200)
+68 |           .onClick((event: ClickEvent) => {
+69 |             this.testDecodeString(100, this.encodeResult)
+70 |           }).margin(10)
+71 |         Button("decode_1000")
+72 |           .width(200)
+73 |           .onClick((event: ClickEvent) => {
+74 |             this.testDecodeString(1000, this.encodeResult)
+75 |           }).margin(10)
+76 |         Button("decode_10000")
+77 |           .width(200)
+78 |           .onClick((event: ClickEvent) => {
+79 |             this.testDecodeString(10000, this.encodeResult)
+80 |           }).margin(10)
+81 | 
+82 |         Button("结果")
+83 |           .width(200)
+84 |           .onClick((event: ClickEvent) => {
+85 |             hilog.error(0x0000, 'Base64', '%{public}s', `原数据: ${this.data}`);
+86 |             hilog.error(0x0000, 'Base64', '%{public}s', `encode: ${this.encodeResult}`);
+87 |             hilog.error(0x0000, 'Base64', '%{public}s', `decode: ${this.decodeResult}`);
+88 |           }).margin(10)
+89 |       }
+90 |       .width('100%')
+91 |     }
+92 |     .height('100%')
+93 |   }
+94 | }
+--------------------------------------------------------------------------------
+
+entry/src/main/ets/pages/Base64JsExample.ets
+
+ 1 | /*
+ 2 |  * Copyright (c) Huawei Technologies Co., Ltd. 2022-2024. All rights resvered.
+ 3 |  */
+ 4 | import { systemDateTime } from '@kit.BasicServicesKit';
+ 5 | import { hilog } from '@kit.PerformanceAnalysisKit';
+ 6 | import { fromByteArray, toByteArray } from 'base64';
+ 7 | 
+ 8 | @Entry
+ 9 | @Component
+10 | struct Base64JsExample {
+11 |   // private data: Uint8Array = Unit8ArrayUtils.generateRandomArray(1024*1024)
+12 |   private data: Uint8Array = new Uint8Array([104, 101, 108, 108, 111, 32, 99, 97, 110, 103, 106, 105, 101])
+13 |   @State encodeResult: string = ""
+14 |   @State decodeResult: Uint8Array = new Uint8Array()
+15 | 
+16 |   private testEncodeString(count: number, str: Uint8Array): void {
+17 |     const start = systemDateTime.getTime(true)
+18 |     for (let i = 0; i < count; i++) {
+19 |       this.encodeResult = fromByteArray(str)
+20 |     }
+21 |     const end = systemDateTime.getTime(true)
+22 |     hilog.error(0x0000, 'Base64Js', '%{public}s', `Base64JsEncode______${count}: ${(end - start) / count}ns/op`);
+23 |   }
+24 |   private testDecodeString(count: number, str: string): void {
+25 |     const start = systemDateTime.getTime(true)
+26 |     for (let i = 0; i < count; i++) {
+27 |       this.decodeResult = toByteArray(str)
+28 |     }
+29 |     const end = systemDateTime.getTime(true)
+30 |     hilog.error(0x0000, 'Base64Js', '%{public}s', `Base64JsDecode______${count}: ${(end - start) / count}ns/op`);
+31 |   }
+32 | 
+33 |   build() {
+34 |     Row() {
+35 |       Column() {
+36 |         Text("Base64Example").fontSize(16)
+37 | 
+38 |         Button("encode_10")
+39 |           .width(200)
+40 |           .onClick((event: ClickEvent) => {
+41 |             this.testEncodeString(10, this.data)
+42 |           }).margin(10)
+43 |         Button("encode_100")
+44 |           .width(200)
+45 |           .onClick((event: ClickEvent) => {
+46 |             this.testEncodeString(100, this.data)
+47 |           }).margin(10)
+48 |         Button("encode_1000")
+49 |           .width(200)
+50 |           .onClick((event: ClickEvent) => {
+51 |             this.testEncodeString(1000, this.data)
+52 |           }).margin(10)
+53 |         Button("encode_10000")
+54 |           .width(200)
+55 |           .onClick((event: ClickEvent) => {
+56 |             this.testEncodeString(10000, this.data)
+57 |           }).margin(10)
+58 |         //------------------
+59 |         Button("decode_10")
+60 |           .width(200)
+61 |           .onClick((event: ClickEvent) => {
+62 |             this.testDecodeString(10, this.encodeResult)
+63 |           }).margin(10)
+64 |         Button("decode_100")
+65 |           .width(200)
+66 |           .onClick((event: ClickEvent) => {
+67 |             this.testDecodeString(100, this.encodeResult)
+68 |           }).margin(10)
+69 |         Button("decode_1000")
+70 |           .width(200)
+71 |           .onClick((event: ClickEvent) => {
+72 |             this.testDecodeString(1000, this.encodeResult)
+73 |           }).margin(10)
+74 |         Button("decode_10000")
+75 |           .width(200)
+76 |           .onClick((event: ClickEvent) => {
+77 |             this.testDecodeString(10000, this.encodeResult)
+78 |           }).margin(10)
+79 | 
+80 |         Button("结果")
+81 |           .width(200)
+82 |           .onClick((event: ClickEvent) => {
+83 |             hilog.error(0x0000, 'Base64Js', '%{public}s', `原数据: ${Array.from(this.data)}`);
+84 |             hilog.error(0x0000, 'Base64Js', '%{public}s', `encode: ${this.encodeResult}`);
+85 |             hilog.error(0x0000, 'Base64Js', '%{public}s', `decode: ${Array.from(this.decodeResult)}`);
+86 |           }).margin(10)
+87 |       }
+88 |       .width('100%')
+89 |     }
+90 |     .height('100%')
+91 |   }
+92 | }
+93 | 
+--------------------------------------------------------------------------------
+
+entry/src/main/ets/pages/CangjieBase64Example.ets
+
+ 1 | 
+ 2 | import { hilog } from "@kit.PerformanceAnalysisKit";
+ 3 | import { Unit8ArrayUtils } from "./common/Unit8ArrayUtils";
+ 4 | import { systemDateTime } from "@kit.BasicServicesKit";
+ 5 | 
+ 6 | import { encode_String, decode_string } from "@cangjie-tpc/base64"
+ 7 | @Entry
+ 8 | @Component
+ 9 | struct CangjieBase64Example {
+10 |   private data: string = "hello cangjie"
+11 |   @State encodeResult: string = ''
+12 |   @State decodeResult: string = ''
+13 | 
+14 |   // 与base64 比较
+15 |   private testEncodeString(count: number, str: string): void {
+16 |     const start = systemDateTime.getTime(true)
+17 |     for (let i = 0; i < count; i++) {
+18 |       this.encodeResult = encode_String(str)
+19 |     }
+20 |     const end = systemDateTime.getTime(true)
+21 |     hilog.error(0x0000, 'CangjieBase64String', '%{public}s', `CangjieBase64StringEncode______${count}: ${(end - start) / count}ns/op`);
+22 |   }
+23 |   private testDecodeString(count: number, str: string): void {
+24 |     const start = systemDateTime.getTime(true)
+25 |     for (let i = 0; i < count; i++) {
+26 |       this.decodeResult = decode_string(str)
+27 |     }
+28 |     const end = systemDateTime.getTime(true)
+29 |     hilog.error(0x0000, 'CangjieBase64String', '%{public}s', `CangjieBase64StringDecode______${count}: ${(end - start) / count}ns/op`);
+30 |   }
+31 | 
+32 | 
+33 |   build() {
+34 |     Row() {
+35 |       Column() {
+36 |         Text("CangjieBase64Example").fontSize(16)
+37 | 
+38 |         Button("encode_10")
+39 |           .width(200)
+40 |           .onClick((event: ClickEvent) => {
+41 |             this.testEncodeString(10, this.data)
+42 |           }).margin(10)
+43 |         Button("encode_100")
+44 |           .width(200)
+45 |           .onClick((event: ClickEvent) => {
+46 |             this.testEncodeString(100, this.data)
+47 |           }).margin(10)
+48 |         // Button("encode_1000")
+49 |         //   .width(200)
+50 |         //   .onClick((event: ClickEvent) => {
+51 |         //     this.testEncodeString(1000, this.data)
+52 |         //   }).margin(10)
+53 |         // Button("encode_10000")
+54 |         //   .width(200)
+55 |         //   .onClick((event: ClickEvent) => {
+56 |         //     this.testEncodeString(10000, this.data)
+57 |         //   }).margin(10)
+58 |         //------------------
+59 |         Button("decode_10")
+60 |           .width(200)
+61 |           .onClick((event: ClickEvent) => {
+62 |             this.testDecodeString(10, this.encodeResult)
+63 |           }).margin(10)
+64 |         Button("decode_100")
+65 |           .width(200)
+66 |           .onClick((event: ClickEvent) => {
+67 |             this.testDecodeString(100, this.encodeResult)
+68 |           }).margin(10)
+69 |         // Button("decode_1000")
+70 |         //   .width(200)
+71 |         //   .onClick((event: ClickEvent) => {
+72 |         //     this.testDecodeString(1000, this.encodeResult)
+73 |         //   }).margin(10)
+74 |         // Button("decode_10000")
+75 |         //   .width(200)
+76 |         //   .onClick((event: ClickEvent) => {
+77 |         //     this.testDecodeString(10000, this.encodeResult)
+78 |         //   }).margin(10)
+79 | 
+80 |         Button("结果")
+81 |           .width(200)
+82 |           .onClick((event: ClickEvent) => {
+83 |             // hilog.error(0x0000, 'CangjieBase64String', '%{public}s', `原数据: ${this.data}`);
+84 |             // let a = lib.toBase64StringArkts(this.data)
+85 |             // hilog.error(0x0000, 'CangjieBase64String', '%{public}s', `encode: ${a}`);
+86 |             // let b = lib.fromBase64StringArkts(a)
+87 |             // hilog.error(0x0000, 'CangjieBase64String', '%{public}s', `decode: ${b}`);
+88 | 
+89 |             hilog.error(0x0000, 'CangjieBase64String', '%{public}s', `原数据: ${this.data}`);
+90 |             hilog.error(0x0000, 'CangjieBase64String', '%{public}s', `encode: ${this.encodeResult}`);
+91 |             hilog.error(0x0000, 'CangjieBase64String', '%{public}s', `decode: ${this.decodeResult}`);
+92 |           }).margin(10)
+93 | 
+94 |       }
+95 |       .width('100%')
+96 |     }
+97 |     .height('100%')
+98 |   }
+99 | }
+--------------------------------------------------------------------------------
+
+entry/src/main/ets/pages/CangjieBase64Utf8Example.ets
+
+  1 | 
+  2 | import { hilog } from "@kit.PerformanceAnalysisKit";
+  3 | import { Unit8ArrayUtils } from "./common/Unit8ArrayUtils";
+  4 | import { systemDateTime } from "@kit.BasicServicesKit";
+  5 | import { encode_Uint8Array, decode_Uint8Array, decode_String_toUint8Array } from "@cangjie-tpc/base64"
+  6 | 
+  7 | @Entry
+  8 | @Component
+  9 | struct CangjieBase64Utf8Example {
+ 10 |   private data: Uint8Array = Unit8ArrayUtils.stringToUint8Array("hello cangjie")
+ 11 |   @State encodeResult: string = ""
+ 12 |   @State decodeResult: Uint8Array = new Uint8Array(this.data.byteLength)
+ 13 | 
+ 14 |   // 与base64 比较
+ 15 |   private testEncodeString(count: number, str: Uint8Array): void {
+ 16 |     const start = systemDateTime.getTime(true)
+ 17 |     for (let i = 0; i < count; i++) {
+ 18 |       this.encodeResult = encode_Uint8Array(str)
+ 19 |     }
+ 20 |     const end = systemDateTime.getTime(true)
+ 21 |     hilog.error(0x0000, 'CangjieBase64Utf8', '%{public}s', `CangjieBase64Utf8Encode______${count}: ${(end - start) / count}ns/op`);
+ 22 |   }
+ 23 |   private testDecodeString(count: number, str: string): void {
+ 24 |     const start = systemDateTime.getTime(true)
+ 25 |     for (let i = 0; i < count; i++) {
+ 26 |       this.decodeResult = (decode_String_toUint8Array(str))
+ 27 |     }
+ 28 |     const end = systemDateTime.getTime(true)
+ 29 |     hilog.error(0x0000, 'CangjieBase64Utf8', '%{public}s', `CangjieBase64Utf8Decode______${count}: ${(end - start) / count}ns/op`);
+ 30 |   }
+ 31 | 
+ 32 |   private testDecodeUint8Array(count: number, str: Uint8Array): void {
+ 33 |     const start = systemDateTime.getTime(true)
+ 34 |     for (let i = 0; i < count; i++) {
+ 35 |       this.decodeResult = (decode_Uint8Array(str))
+ 36 |     }
+ 37 |     const end = systemDateTime.getTime(true)
+ 38 |     hilog.error(0x0000, 'CangjieBase64Utf8', '%{public}s', `CangjieBase64Utf8Decode______${count}: ${(end - start) / count}ns/op`);
+ 39 |   }
+ 40 | 
+ 41 | 
+ 42 |   build() {
+ 43 |     Row() {
+ 44 |       Column() {
+ 45 |         Text("CangjieBase64Example").fontSize(16)
+ 46 |         Button("encode_10")
+ 47 |           .width(200)
+ 48 |           .onClick((event: ClickEvent) => {
+ 49 |             this.testEncodeString(10, this.data)
+ 50 |           }).margin(10)
+ 51 |         Button("encode_1000")
+ 52 |           .width(200)
+ 53 |           .onClick((event: ClickEvent) => {
+ 54 |             this.testEncodeString(100, this.data)
+ 55 |           }).margin(10)
+ 56 |         Button("encode_1000")
+ 57 |           .width(200)
+ 58 |           .onClick((event: ClickEvent) => {
+ 59 |             this.testEncodeString(1000, this.data)
+ 60 |           }).margin(10)
+ 61 |         Button("encode_10000")
+ 62 |           .width(200)
+ 63 |           .onClick((event: ClickEvent) => {
+ 64 |             this.testEncodeString(10000, this.data)
+ 65 |           }).margin(10)
+ 66 |         //------------------
+ 67 |         Button("decode_10")
+ 68 |           .width(200)
+ 69 |           .onClick((event: ClickEvent) => {
+ 70 |             this.testDecodeUint8Array(10, Unit8ArrayUtils.stringToUint8Array(this.encodeResult))
+ 71 |           }).margin(10)
+ 72 |         Button("decode_1000")
+ 73 |           .width(200)
+ 74 |           .onClick((event: ClickEvent) => {
+ 75 |             this.testDecodeUint8Array(100, Unit8ArrayUtils.stringToUint8Array(this.encodeResult))
+ 76 |           }).margin(10)
+ 77 |         Button("decode_1000")
+ 78 |           .width(200)
+ 79 |           .onClick((event: ClickEvent) => {
+ 80 |             this.testDecodeUint8Array(1000, Unit8ArrayUtils.stringToUint8Array(this.encodeResult))
+ 81 |           }).margin(10)
+ 82 |         Button("decode_10000")
+ 83 |           .width(200)
+ 84 |           .onClick((event: ClickEvent) => {
+ 85 |             this.testDecodeUint8Array(10000, Unit8ArrayUtils.stringToUint8Array(this.encodeResult))
+ 86 |           }).margin(10)
+ 87 | 
+ 88 |         Button("结果")
+ 89 |           .width(200)
+ 90 |           .onClick((event: ClickEvent) => {
+ 91 |             hilog.error(0x0000, 'CangjieBase64Utf8', '%{public}s', `原数据: ${JSON.stringify(Array.from(new Uint8Array(this.data)))}`);
+ 92 |             hilog.error(0x0000, 'CangjieBase64Utf8', '%{public}s', `encode: ${this.encodeResult}`);
+ 93 |             hilog.error(0x0000, 'CangjieBase64Utf8', '%{public}s', `decode: ${JSON.stringify(Array.from(new Uint8Array(this.decodeResult)))}`);
+ 94 |           }).margin(10)
+ 95 | 
+ 96 |       }
+ 97 |       .width('100%')
+ 98 |     }
+ 99 |     .height('100%')
+100 |   }
+101 | }
+--------------------------------------------------------------------------------
+
+entry/src/main/ets/pages/Index.ets
+
+ 1 | /*
+ 2 |  * Copyright (c) Huawei Technologies Co., Ltd. 2022-2024. All rights resvered.
+ 3 |  */
+ 4 | import router from '@ohos.router'
+ 5 | 
+ 6 | @Entry
+ 7 | @Component
+ 8 | struct Index {
+ 9 | 
+10 |   build() {
+11 |       Column(){
+12 |         Button('ohos_base64_utf8').backgroundColor(0x317aff).fontSize(18).width(200).height(40).onClick(() => {
+13 |           router.pushUrl({
+14 |             url: 'pages/OhosBase64Example',
+15 |           });
+16 |         }).margin(10)
+17 |         Button('base64').backgroundColor(0x317aff).fontSize(18).width(200).height(40).onClick(() => {
+18 |           router.pushUrl({
+19 |             url: 'pages/Base64Example',
+20 |           });
+21 |         }).margin(10)
+22 |         Button('base64-js').backgroundColor(0x317aff).fontSize(18).width(200).height(40).onClick(() => {
+23 |           router.pushUrl({
+24 |             url: 'pages/Base64JsExample',
+25 |           });
+26 |         }).margin(10)
+27 |         Button('cangjie_base64').backgroundColor(0x317aff).fontSize(18).width(200).height(40).onClick(() => {
+28 |           router.pushUrl({
+29 |             url: 'pages/CangjieBase64Example',
+30 |           });
+31 |         }).margin(10)
+32 |         Button('cangjie_base64_utf8').backgroundColor(0x317aff).fontSize(18).width(200).height(40).onClick(() => {
+33 |           router.pushUrl({
+34 |             url: 'pages/CangjieBase64Utf8Example',
+35 |           });
+36 |         }).margin(10)
+37 | 
+38 |     }
+39 |     .height('100%')
+40 |     .width('100%')
+41 |   }
+42 | }
+--------------------------------------------------------------------------------
+
+entry/src/main/ets/pages/OhosBase64Example.ets
+
+ 1 | /*
+ 2 |  * Copyright (c) Huawei Technologies Co., Ltd. 2022-2024. All rights resvered.
+ 3 |  */
+ 4 | import util from '@ohos.util';
+ 5 | import { Unit8ArrayUtils } from './common/Unit8ArrayUtils';
+ 6 | import { systemDateTime } from '@kit.BasicServicesKit';
+ 7 | import { hilog } from '@kit.PerformanceAnalysisKit';
+ 8 | import {Base64} from '@ohos/base64'
+ 9 | 
+10 | @Entry
+11 | @Component
+12 | struct OhosBase64Example {
+13 |   private data: Uint8Array = new Uint8Array([104, 101, 108, 108, 111, 32, 99, 97, 110, 103, 106, 105, 101])
+14 |   @State encodeResult: string = ""
+15 |   @State decodeResult: string = ""
+16 | 
+17 |   private testEncodeString(count: number, str: Uint8Array): void {
+18 |     const start = systemDateTime.getTime(true)
+19 |     for (let i = 0; i < count; i++) {
+20 |       this.encodeResult = Base64.encodeToString(str)
+21 |     }
+22 |     const end = systemDateTime.getTime(true)
+23 |     hilog.error(0x0000, 'OhosBase64', '%{public}s', `OhosBase64Encode______${count}: ${(end - start) / count}ns/op`);
+24 |   }
+25 |   private testDecodeString(count: number, str: string): void {
+26 |     const start = systemDateTime.getTime(true)
+27 |     hilog.error(0x0000, 'OhosBase64', '%{public}s', `OhosBase64Encode__222--${str}---${Base64.stringToBytes(str)}}`);
+28 |     for (let i = 0; i < count; i++) {
+29 |       this.decodeResult = Base64.bytesToString(Base64.decode(str))
+30 |     }
+31 |     const end = systemDateTime.getTime(true)
+32 |     hilog.error(0x0000, 'OhosBase64', '%{public}s', `OhosBase64Decode______${count}: ${(end - start) / count}ns/op`);
+33 |   }
+34 | 
+35 |   build() {
+36 |     Row() {
+37 |       Column() {
+38 |         Text("Base64Example").fontSize(16)
+39 | 
+40 |         Button("encode_10")
+41 |           .width(200)
+42 |           .onClick((event: ClickEvent) => {
+43 |             this.testEncodeString(10, this.data)
+44 |           }).margin(10)
+45 |         // Button("encode_100")
+46 |         //   .width(200)
+47 |         //   .onClick((event: ClickEvent) => {
+48 |         //     this.testEncodeString(100, this.data)
+49 |         //   }).margin(10)
+50 |         // Button("encode_1000")
+51 |         //   .width(200)
+52 |         //   .onClick((event: ClickEvent) => {
+53 |         //     this.testEncodeString(1000, this.data)
+54 |         //   }).margin(10)
+55 |         // Button("encode_10000")
+56 |         //   .width(200)
+57 |         //   .onClick((event: ClickEvent) => {
+58 |         //     this.testEncodeString(10000, this.data)
+59 |         //   }).margin(10)
+60 |         //------------------
+61 |         Button("decode_10")
+62 |           .width(200)
+63 |           .onClick((event: ClickEvent) => {
+64 |             this.testDecodeString(10, this.encodeResult)
+65 |           }).margin(10)
+66 |         // Button("decode_100")
+67 |         //   .width(200)
+68 |         //   .onClick((event: ClickEvent) => {
+69 |         //     this.testDecodeString(100, this.encodeResult)
+70 |         //   }).margin(10)
+71 |         // Button("decode_1000")
+72 |         //   .width(200)
+73 |         //   .onClick((event: ClickEvent) => {
+74 |         //     this.testDecodeString(1000, this.encodeResult)
+75 |         //   }).margin(10)
+76 |         // Button("decode_10000")
+77 |         //   .width(200)
+78 |         //   .onClick((event: ClickEvent) => {
+79 |         //     this.testDecodeString(10000, this.encodeResult)
+80 |         //   }).margin(10)
+81 | 
+82 |         Button("结果")
+83 |           .width(200)
+84 |           .onClick((event: ClickEvent) => {
+85 |             hilog.error(0x0000, 'OhosBase64', '%{public}s', `原数据: ${this.data}`);
+86 |             hilog.error(0x0000, 'OhosBase64', '%{public}s', `encode: ${this.encodeResult}`);
+87 |             hilog.error(0x0000, 'OhosBase64', '%{public}s', `decode: ${this.decodeResult}`);
+88 |           }).margin(10)
+89 |       }
+90 |       .width('100%')
+91 |     }
+92 |     .height('100%')
+93 |   }
+94 | }
+95 | 
+--------------------------------------------------------------------------------
+
+entry/src/main/ets/pages/common/Unit8ArrayUtils.ets
+
+  1 | /*
+  2 |  * Copyright (c) Huawei Technologies Co., Ltd. 2022-2024. All rights resvered.
+  3 |  */
+  4 | import { util } from '@kit.ArkTS';
+  5 | 
+  6 | export class Unit8ArrayUtils {
+  7 |   public static Uint8ArrayToString(array: Uint8Array): string {
+  8 |     let out: string = '';
+  9 |     let i: number = 0;
+ 10 |     let len: number = 0;
+ 11 |     let c: number = -1;
+ 12 |     let char2: number = -1;
+ 13 |     let char3: number = -1;
+ 14 |     let tempAry: Uint8Array = array;
+ 15 |     len = tempAry.length;
+ 16 |     i = 0;
+ 17 |     while (i < len) {
+ 18 |       c = tempAry[i++];
+ 19 |       switch (c >> 4) {
+ 20 |         case 0:
+ 21 |         case 1:
+ 22 |         case 2:
+ 23 |         case 3:
+ 24 |         case 4:
+ 25 |         case 5:
+ 26 |         case 6:
+ 27 |         case 7:
+ 28 |           // 0xxxxxxx
+ 29 |           out += String.fromCharCode(c);
+ 30 |           break;
+ 31 |         case 12:
+ 32 |         case 13:
+ 33 |           // 110x xxxx   10xx xxxx
+ 34 |           char2 = tempAry[i++];
+ 35 |           out += String.fromCharCode(((c & 0x1F) << 6) | (char2 & 0x3F));
+ 36 |           break;
+ 37 |         case 14:
+ 38 |           // 1110 xxxx  10xx xxxx  10xx xxxx
+ 39 |           char2 = tempAry[i++];
+ 40 |           char3 = tempAry[i++];
+ 41 |           out += String.fromCharCode(((c & 0x0F) << 12) |
+ 42 |             ((char2 & 0x3F) << 6) |
+ 43 |             ((char3 & 0x3F) << 0));
+ 44 |           break;
+ 45 |       }
+ 46 |     }
+ 47 |     return out;
+ 48 |   }
+ 49 | 
+ 50 |   public static stringToUint8Array(string: string) {
+ 51 | 
+ 52 |     let pos = 0;
+ 53 |     const len = string.length;
+ 54 |     const out = [];
+ 55 |     let at = 0; // output position
+ 56 |     let tlen = Math.max(32, len + (len >> 1) + 7); // 1.5x size
+ 57 |     let target = new Uint8Array((tlen >> 3) << 3); // ... but at 8 byte offset
+ 58 |     while (pos < len) {
+ 59 |       let value = string.charCodeAt(pos++);
+ 60 |       if (value >= 0xd800 && value <= 0xdbff) {
+ 61 |         // high surrogate
+ 62 |         if (pos < len) {
+ 63 |           const extra = string.charCodeAt(pos);
+ 64 |           if ((extra & 0xfc00) === 0xdc00) {
+ 65 |             ++pos;
+ 66 |             value = ((value & 0x3ff) << 10) + (extra & 0x3ff) + 0x10000;
+ 67 |           }
+ 68 |         }
+ 69 |         if (value >= 0xd800 && value <= 0xdbff) {
+ 70 |           continue; // drop lone surrogate
+ 71 |         }
+ 72 |       }
+ 73 |       // expand the buffer if we couldn't write 4 bytes
+ 74 |       if (at + 4 > target.length) {
+ 75 |         tlen += 8; // minimum extra
+ 76 |         tlen *= (1.0 + (pos / string.length) * 2); // take 2x the remaining
+ 77 |         tlen = (tlen >> 3) << 3; // 8 byte offset
+ 78 |         const update = new Uint8Array(tlen);
+ 79 |         update.set(target);
+ 80 |         target = update;
+ 81 |       }
+ 82 |       if ((value & 0xffffff80) === 0) { // 1-byte
+ 83 |         target[at++] = value; // ASCII
+ 84 |         continue;
+ 85 |       } else if ((value & 0xfffff800) === 0) { // 2-byte
+ 86 |         target[at++] = ((value >> 6) & 0x1f) | 0xc0;
+ 87 |       } else if ((value & 0xffff0000) === 0) { // 3-byte
+ 88 |         target[at++] = ((value >> 12) & 0x0f) | 0xe0;
+ 89 |         target[at++] = ((value >> 6) & 0x3f) | 0x80;
+ 90 |       } else if ((value & 0xffe00000) === 0) { // 4-byte
+ 91 |         target[at++] = ((value >> 18) & 0x07) | 0xf0;
+ 92 |         target[at++] = ((value >> 12) & 0x3f) | 0x80;
+ 93 |         target[at++] = ((value >> 6) & 0x3f) | 0x80;
+ 94 |       } else {
+ 95 |         continue;
+ 96 |       }
+ 97 |       target[at++] = (value & 0x3f) | 0x80;
+ 98 |     }
+ 99 |     return target.subarray(0, at);
+100 |   }
+101 | 
+102 |   public static generateRandomArray(length: number): Uint8Array {
+103 |     const array = new Uint8Array(length);
+104 |     for (let i = 0; i < length; i++) {
+105 |       array[i] = Math.floor(Math.random() * 256);
+106 |     }
+107 |     return array;
+108 |   }
+109 |   // 随机生成 1M 数据
+110 |   public static generateRandomString(length: number): string {
+111 |     const arr = Unit8ArrayUtils.generateRandomArray(length)
+112 |     let textDecoder = util.TextDecoder.create('utf-8');
+113 |     return textDecoder.decodeToString(arr);
+114 |   }
+115 |  // 将字符串转ArrayBuffer
+116 |   public static StringToArrayBuffer(str: string): ArrayBuffer {
+117 |     const byteArray = new util.TextEncoder().encodeInto(str)
+118 |     const buffer = new ArrayBuffer(byteArray.length);
+119 |     const view = new Uint8Array(buffer);
+120 |     // 填充数据
+121 |     byteArray.forEach((value, index) => {
+122 |       view[index] = value;
+123 |     });
+124 | 
+125 |     return buffer
+126 |   }
+127 | 
+128 | }
+--------------------------------------------------------------------------------
+
+entry/src/main/ets/pages/common/base64.js
+
+ 1 | /*
+ 2 |  * Copyright (c) Huawei Technologies Co., Ltd. 2022-2024. All rights resvered.
+ 3 |  */
+ 4 | 
+ 5 | var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+ 6 | function InvalidCharacterError(message) {
+ 7 |   this.message = message;
+ 8 | }
+ 9 | export function btoa(input) {
+10 |   var str = String (input);
+11 |   for (
+12 |     // initialize result and counter
+13 |     var block, charCode, idx = 0, map = chars, output = '';
+14 |     // if the next str index does not exist:
+15 |     //   change the mapping table to "="
+16 |     //   check if d has no fractional digits
+17 |     str.charAt (idx | 0) || (map = '=', idx % 1);
+18 |     // "8 - idx % 1 * 8" generates the sequence 2, 4, 6, 8
+19 |     output += map.charAt (63 & block >> 8 - idx % 1 * 8)
+20 |   ) {
+21 |     charCode = str.charCodeAt (idx += 3 / 4);
+22 |     if (charCode > 0xFF) {
+23 |       throw new InvalidCharacterError ("'btoa' failed: The string to be encoded contains characters outside of the Latin1 range.");
+24 |     }
+25 |     block = block << 8 | charCode;
+26 |   }
+27 |   return output;
+28 | }
+29 | 
+30 | // decoder
+31 | // [https://gist.github.com/1020396] by [https://github.com/atk]
+32 | export function atob(input) {
+33 |   var str = (String (input)).replace (/[=]+$/, ''); // #31: ExtendScript bad parse of /=
+34 |   if (str.length % 4 === 1) {
+35 |     throw new InvalidCharacterError ("'atob' failed: The string to be decoded is not correctly encoded.");
+36 |   }
+37 |   for (
+38 |     // initialize result and counters
+39 |     var bc = 0, bs, buffer, idx = 0, output = '';
+40 |     // get next character
+41 |     buffer = str.charAt (idx++); // eslint-disable-line no-cond-assign
+42 |     // character found in table? initialize bit storage and add its ascii value;
+43 |     ~buffer && (bs = bc % 4 ? bs * 64 + buffer : buffer,
+44 |     // and if not first of each 4 characters,
+45 |     // convert the first 8 bits to one ascii character
+46 |     bc++ % 4) ? output += String.fromCharCode (255 & bs >> (-2 * bc & 6)) : 0
+47 |   ) {
+48 |     // try to find character in table (0-63, not found => -1)
+49 |     buffer = chars.indexOf (buffer);
+50 |   }
+51 |   return output;
+52 | }
+--------------------------------------------------------------------------------
+
+entry/src/main/module.json5
+
+ 1 | {
+ 2 |   "module": {
+ 3 |     "name": "entry",
+ 4 |     "type": "entry",
+ 5 |     "description": "$string:module_desc",
+ 6 |     "mainElement": "EntryAbility",
+ 7 |     "deviceTypes": [
+ 8 |       "phone",
+ 9 |       "tablet",
+10 |       "2in1"
+11 |     ],
+12 |     "deliveryWithInstall": true,
+13 |     "installationFree": false,
+14 |     "pages": "$profile:main_pages",
+15 |     "abilities": [
+16 |       {
+17 |         "name": "EntryAbility",
+18 |         "srcEntry": "./ets/entryability/EntryAbility.ets",
+19 |         "description": "$string:EntryAbility_desc",
+20 |         "icon": "$media:layered_image",
+21 |         "label": "$string:EntryAbility_label",
+22 |         "startWindowIcon": "$media:startIcon",
+23 |         "startWindowBackground": "$color:start_window_background",
+24 |         "exported": true,
+25 |         "skills": [
+26 |           {
+27 |             "entities": [
+28 |               "entity.system.home"
+29 |             ],
+30 |             "actions": [
+31 |               "action.system.home"
+32 |             ]
+33 |           }
+34 |         ]
+35 |       }
+36 |     ],
+37 |     "extensionAbilities": [
+38 |       {
+39 |         "name": "EntryBackupAbility",
+40 |         "srcEntry": "./ets/entrybackupability/EntryBackupAbility.ets",
+41 |         "type": "backup",
+42 |         "exported": false,
+43 |         "metadata": [
+44 |           {
+45 |             "name": "ohos.extension.backup",
+46 |             "resource": "$profile:backup_config"
+47 |           }
+48 |         ],
+49 |       }
+50 |     ]
+51 |   }
+52 | }
+--------------------------------------------------------------------------------
+
+entry/src/main/resources/base/element/color.json
+
+1 | {
+2 |   "color": [
+3 |     {
+4 |       "name": "start_window_background",
+5 |       "value": "#FFFFFF"
+6 |     }
+7 |   ]
+8 | }
+--------------------------------------------------------------------------------
+
+entry/src/main/resources/base/element/float.json
+
+1 | {
+2 |   "float": [
+3 |     {
+4 |       "name": "page_text_font_size",
+5 |       "value": "50fp"
+6 |     }
+7 |   ]
+8 | }
+--------------------------------------------------------------------------------
+
+entry/src/main/resources/base/element/string.json
+
+ 1 | {
+ 2 |   "string": [
+ 3 |     {
+ 4 |       "name": "module_desc",
+ 5 |       "value": "module description"
+ 6 |     },
+ 7 |     {
+ 8 |       "name": "EntryAbility_desc",
+ 9 |       "value": "description"
+10 |     },
+11 |     {
+12 |       "name": "EntryAbility_label",
+13 |       "value": "label"
+14 |     }
+15 |   ]
+16 | }
+--------------------------------------------------------------------------------
+
+entry/src/main/resources/base/media/layered_image.json
+
+1 | {
+2 |   "layered-image":
+3 |   {
+4 |     "background" : "$media:background",
+5 |     "foreground" : "$media:foreground"
+6 |   }
+7 | }
+--------------------------------------------------------------------------------
+
+entry/src/main/resources/base/profile/backup_config.json
+
+1 | {
+2 |   "allowToBackupRestore": true
+3 | }
+--------------------------------------------------------------------------------
+
+entry/src/main/resources/base/profile/main_pages.json
+
+ 1 | {
+ 2 |   "src": [
+ 3 |     "pages/Index",
+ 4 |     "pages/Base64Example",
+ 5 |     "pages/Base64JsExample",
+ 6 |     "pages/CangjieBase64Example",
+ 7 |     "pages/CangjieBase64Utf8Example",
+ 8 |     "pages/OhosBase64Example"
+ 9 |   ]
+10 | }
+--------------------------------------------------------------------------------
+
+entry/src/main/resources/dark/element/color.json
+
+1 | {
+2 |   "color": [
+3 |     {
+4 |       "name": "start_window_background",
+5 |       "value": "#000000"
+6 |     }
+7 |   ]
+8 | }
+--------------------------------------------------------------------------------
+
+entry/src/mock/mock-config.json5
+
+1 | {
+2 | }
+--------------------------------------------------------------------------------
+
+entry/src/ohosTest/ets/test/Ability.test.ets
+
+ 1 | import { hilog } from '@kit.PerformanceAnalysisKit';
+ 2 | import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
+ 3 | 
+ 4 | export default function abilityTest() {
+ 5 |   describe('ActsAbilityTest', () => {
+ 6 |     // Defines a test suite. Two parameters are supported: test suite name and test suite function.
+ 7 |     beforeAll(() => {
+ 8 |       // Presets an action, which is performed only once before all test cases of the test suite start.
+ 9 |       // This API supports only one parameter: preset action function.
+10 |     })
+11 |     beforeEach(() => {
+12 |       // Presets an action, which is performed before each unit test case starts.
+13 |       // The number of execution times is the same as the number of test cases defined by **it**.
+14 |       // This API supports only one parameter: preset action function.
+15 |     })
+16 |     afterEach(() => {
+17 |       // Presets a clear action, which is performed after each unit test case ends.
+18 |       // The number of execution times is the same as the number of test cases defined by **it**.
+19 |       // This API supports only one parameter: clear action function.
+20 |     })
+21 |     afterAll(() => {
+22 |       // Presets a clear action, which is performed after all test cases of the test suite end.
+23 |       // This API supports only one parameter: clear action function.
+24 |     })
+25 |     it('assertContain', 0, () => {
+26 |       // Defines a test case. This API supports three parameters: test case name, filter parameter, and test case function.
+27 |       hilog.info(0x0000, 'testTag', '%{public}s', 'it begin');
+28 |       let a = 'abc';
+29 |       let b = 'b';
+30 |       // Defines a variety of assertion methods, which are used to declare expected boolean conditions.
+31 |       expect(a).assertContain(b);
+32 |       expect(a).assertEqual(a);
+33 |     })
+34 |   })
+35 | }
+--------------------------------------------------------------------------------
+
+entry/src/ohosTest/ets/test/List.test.ets
+
+1 | import abilityTest from './Ability.test';
+2 | 
+3 | export default function testsuite() {
+4 |   abilityTest();
+5 | }
+--------------------------------------------------------------------------------
+
+entry/src/ohosTest/module.json5
+
+ 1 | {
+ 2 |   "module": {
+ 3 |     "name": "entry_test",
+ 4 |     "type": "feature",
+ 5 |     "deviceTypes": [
+ 6 |       "phone",
+ 7 |       "tablet",
+ 8 |       "2in1"
+ 9 |     ],
+10 |     "deliveryWithInstall": true,
+11 |     "installationFree": false
+12 |   }
+13 | }
+--------------------------------------------------------------------------------
+
+entry/src/test/List.test.ets
+
+1 | import localUnitTest from './LocalUnit.test';
+2 | 
+3 | export default function testsuite() {
+4 |   localUnitTest();
+5 | }
+--------------------------------------------------------------------------------
+
+entry/src/test/LocalUnit.test.ets
+
+ 1 | import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
+ 2 | 
+ 3 | export default function localUnitTest() {
+ 4 |   describe('localUnitTest', () => {
+ 5 |     // Defines a test suite. Two parameters are supported: test suite name and test suite function.
+ 6 |     beforeAll(() => {
+ 7 |       // Presets an action, which is performed only once before all test cases of the test suite start.
+ 8 |       // This API supports only one parameter: preset action function.
+ 9 |     });
+10 |     beforeEach(() => {
+11 |       // Presets an action, which is performed before each unit test case starts.
+12 |       // The number of execution times is the same as the number of test cases defined by **it**.
+13 |       // This API supports only one parameter: preset action function.
+14 |     });
+15 |     afterEach(() => {
+16 |       // Presets a clear action, which is performed after each unit test case ends.
+17 |       // The number of execution times is the same as the number of test cases defined by **it**.
+18 |       // This API supports only one parameter: clear action function.
+19 |     });
+20 |     afterAll(() => {
+21 |       // Presets a clear action, which is performed after all test cases of the test suite end.
+22 |       // This API supports only one parameter: clear action function.
+23 |     });
+24 |     it('assertContain', 0, () => {
+25 |       // Defines a test case. This API supports three parameters: test case name, filter parameter, and test case function.
+26 |       let a = 'abc';
+27 |       let b = 'b';
+28 |       // Defines a variety of assertion methods, which are used to declare expected boolean conditions.
+29 |       expect(a).assertContain(b);
+30 |       expect(a).assertEqual(a);
+31 |     });
+32 |   });
+33 | }
+--------------------------------------------------------------------------------
+
+hvigor/hvigor-config.json5
+
+ 1 | {
+ 2 |   "modelVersion": "6.0.2",
+ 3 |   "dependencies": {
+ 4 |     "@ohos/cangjie-build-support": "file:cangjie-build-support-6.2.640.tgz"
+ 5 |   },
+ 6 |   "execution": {
+ 7 |     // "analyze": "normal",                     /* Define the build analyze mode. Value: [ "normal" | "advanced" | false ]. Default: "normal" */
+ 8 |     // "daemon": true,                          /* Enable daemon compilation. Value: [ true | false ]. Default: true */
+ 9 |     // "incremental": true,                     /* Enable incremental compilation. Value: [ true | false ]. Default: true */
+10 |     // "parallel": true,                        /* Enable parallel compilation. Value: [ true | false ]. Default: true */
+11 |     // "typeCheck": false,                      /* Enable typeCheck. Value: [ true | false ]. Default: false */
+12 |   },
+13 |   "logging": {
+14 |     // "level": "info"                          /* Define the log level. Value: [ "debug" | "info" | "warn" | "error" ]. Default: "info" */
+15 |   },
+16 |   "debugging": {
+17 |     // "stacktrace": false                      /* Disable stacktrace compilation. Value: [ true | false ]. Default: false */
+18 |   },
+19 |   "nodeOptions": {
+20 |     // "maxOldSpaceSize": 8192                  /* Enable nodeOptions maxOldSpaceSize compilation. Unit M. Used for the daemon process. Default: 8192*/
+21 |     // "exposeGC": true                         /* Enable to trigger garbage collection explicitly. Default: true*/
+22 |   }
+23 | }
+--------------------------------------------------------------------------------
+
+hvigorfile.ts
+
+1 | import { appTasks } from '@ohos/cangjie-build-support';
+2 | 
+3 | export default {
+4 |     system: appTasks,  /* Built-in plugin of Hvigor. It cannot be modified. */
+5 |     plugins:[]         /* Custom plugin to extend the functionality of Hvigor. */
+6 | }
+--------------------------------------------------------------------------------
+
+library/.gitignore
+
+1 | /node_modules
+2 | /oh_modules
+3 | /.preview
+4 | /build
+5 | /.cxx
+6 | /.test
+7 | **/IDL_Dependencies_List~
+8 | **/IDL_Custom_Type_Whitelist~
+9 | **/build-script-cache
+--------------------------------------------------------------------------------
+
+library/BuildProfile.ets
+
+ 1 | /**
+ 2 |  * Use these variables when you tailor your ArkTS code. They must be of the const type.
+ 3 |  */
+ 4 | export const HAR_VERSION = '1.0.0';
+ 5 | export const BUILD_MODE_NAME = 'debug';
+ 6 | export const DEBUG = true;
+ 7 | export const TARGET_NAME = 'default';
+ 8 | 
+ 9 | /**
+10 |  * BuildProfile Class is used only for compatibility purposes.
+11 |  */
+12 | export default class BuildProfile { 
+13 | 	static readonly HAR_VERSION = HAR_VERSION;
+14 | 	static readonly BUILD_MODE_NAME = BUILD_MODE_NAME;
+15 | 	static readonly DEBUG = DEBUG;
+16 | 	static readonly TARGET_NAME = TARGET_NAME;
+17 | }
+--------------------------------------------------------------------------------
+
+library/CHANGELOG.md
+
+1 | ## 1.0.0
+2 | 
+3 | - 支持 ArkTS 调用 Cangjie 版 base64 编解码
+4 | 
+--------------------------------------------------------------------------------
+
+library/Index.ets
+
+1 | export { encode_Uint8Array, encode_String, decode_string, decode_Uint8Array, decode_String_toUint8Array } from './src/main/ets/components/MainPage'
+--------------------------------------------------------------------------------
+
+library/README.md
+
+  1 | <div align="center">
+  2 | <h1>base64-cj</h1>
+  3 | </div>
+  4 | 
+  5 | <p align="center">
+  6 | <img alt="" src="https://img.shields.io/badge/release-v1.0.0-brightgreen" style="display: inline-block;" />
+  7 | <img alt="" src="https://img.shields.io/badge/build-pass-brightgreen" style="display: inline-block;" />
+  8 | <img alt="" src="https://img.shields.io/badge/cjc-v0.53.20-brightgreen" style="display: inline-block;" />
+  9 | <img alt="" src="https://img.shields.io/badge/cjcov-NA-brightgreen" style="display: inline-block;" />
+ 10 | <img alt="" src="https://img.shields.io/badge/project-open-brightgreen" style="display: inline-block;" />
+ 11 | </p>
+ 12 | 
+ 13 | ## 介绍
+ 14 | 
+ 15 | ArkTS 调用 Cangjie 版 base64 编解码算法实现。
+ 16 | 
+ 17 | ## 特性
+ 18 | 
+ 19 | - 支持 ArkTS 调用 Cangjie 版 base64 编解码
+ 20 | 
+ 21 | ### 源码目录
+ 22 | 
+ 23 | ```shell
+ 24 | ├─ AppScope
+ 25 | ├─ entry                 # 示例代码
+ 26 | ├─ hvigor                # 构建工具             
+ 27 | ├─ library               # 源码文件夹                   
+ 28 | │  └─ src
+ 29 | │      └─ main
+ 30 | │          ├─ cangjie    # cangjie 和 ArkTS 互操作代码
+ 31 | │          ├─ ets        # ets 对外接口
+ 32 | │          └─ resources
+ 33 | └─ README.md             # 库使用介绍
+ 34 | ```
+ 35 | ## 接口说明
+ 36 | 
+ 37 | ```
+ 38 | /*
+ 39 |  * 将 ArrayBuffer 数据转换为 base64。
+ 40 |  * 
+ 41 |  * 参数 data - 原始数据
+ 42 |  * 返回值 string - base64 数据
+ 43 |  */
+ 44 | function encode_Uint8Array(data: ArrayBuffer): string 
+ 45 | 
+ 46 | /*
+ 47 |  * 将 base64 数据转换为 ArrayBuffer
+ 48 |  * 
+ 49 |  * 参数 data - base64 数据
+ 50 |  * 返回值 ArrayBuffer - 原始数据
+ 51 |  */
+ 52 | function decode_Uint8Array(data: ArrayBuffer): ArrayBuffer
+ 53 | 
+ 54 | /*
+ 55 |  * 将 string 类型数据转换为 base64。
+ 56 |  * 
+ 57 |  * 参数 data - 原始数据
+ 58 |  * 返回值 string - base64 数据
+ 59 |  */
+ 60 | function encode_String(data: string): string
+ 61 | 
+ 62 | /*
+ 63 |  * 将 base64 数据转换为 string 数据。
+ 64 |  * 
+ 65 |  * 参数 data - base64 数据
+ 66 |  * 返回值 string - 原始数据
+ 67 |  */
+ 68 | function decode_string(data: string): string
+ 69 | 
+ 70 | /*
+ 71 |  * 将 base64 数据转换为 ArrayBuffer 数据。
+ 72 |  * 
+ 73 |  * 参数 data - base64 数据
+ 74 |  * 返回值 ArrayBuffer - 原始数据
+ 75 |  */
+ 76 | function decode_String_toUint8Array(data: string): ArrayBuffer
+ 77 | ```
+ 78 | 
+ 79 | ## 使用说明
+ 80 | 
+ 81 | 1. 通过中心仓下载安装
+ 82 | 
+ 83 |     ```text
+ 84 |     ohpm install @cangjie-tpc/base64
+ 85 |     ```
+ 86 | 
+ 87 | 2. 通过 module 引入
+ 88 |    1. 克隆下载项目。
+ 89 |    2. 将 library 模块拷贝到应用项目下。
+ 90 |    3. 修改自身应用 entry 下的 oh-package.json5 文件，在 dependencies 字段添加：
+ 91 |       ```json
+ 92 |       {
+ 93 |          "dependencies": {
+ 94 |             "@cangjie-tpc/base64": "file:../library"
+ 95 |          }
+ 96 |       }
+ 97 |       ```
+ 98 |    4. 在项目中使用以下方式引入：
+ 99 |       ```cangjie
+100 |       import { encode_String, decode_string, encode_Uint8Array, decode_Uint8Array, decode_String_toUint8Array } from "@cangjie-tpc/base64cj"
+101 |       ```
+102 | ## 功能示例
+103 | 
+104 | encode_String 和 decode_string 使用如下：
+105 | 
+106 | ```ets
+107 | import { encode_String, decode_string } from "@cangjie-tpc/base64cj"
+108 | @Entry
+109 | @Component
+110 | struct CangjieBase64Example {
+111 |   private data: string = "hello cangjie"
+112 |   @State encodeResult: string = ''
+113 |   @State decodeResult: string = ''
+114 |     
+115 |   build() {
+116 |     Row() {
+117 |       Column() {
+118 |         Button("encode")
+119 |           .width(200)
+120 |           .onClick((event: ClickEvent) => {
+121 |              hilog.error(0x0000, 'CangjieBase64String', '%{public}s', `原数据: ${this.data}`);
+122 |              this.encodeResult = encode_String(this.data)
+123 |              hilog.error(0x0000, 'CangjieBase64String', '%{public}s', `encode: ${this.encodeResult}`);
+124 |           }).margin(10)
+125 |                 
+126 |         Button("decode")
+127 |           .width(200)
+128 |           .onClick((event: ClickEvent) => {
+129 |              hilog.error(0x0000, 'CangjieBase64String', '%{public}s', `原数据: ${this.encodeResult}`);
+130 |              this.decodeResult = decode_string(this.encodeResult)
+131 |              hilog.error(0x0000, 'CangjieBase64String', '%{public}s', `decode: ${this.decodeResult}`);
+132 |           }).margin(10)    
+133 | 
+134 |       }
+135 |       .width('100%')
+136 |     }
+137 |     .height('100%')
+138 |   }
+139 | }
+140 | ```
+141 | 
+142 | encode_Uint8Array 和 decode_Uint8Array 使用如下：
+143 | 
+144 | ```ets
+145 | import { encode_Uint8Array, decode_String_toUint8Array } from "@cangjie-tpc/base64cj"
+146 | @Entry
+147 | @Component
+148 | struct CangjieBase64Example {
+149 |   private data: ArrayBuffer = Unit8ArrayUtils.StringToArrayBuffer("hello cangjie")
+150 |   @State encodeResult: string = ''
+151 |     
+152 |   build() {
+153 |     Row() {
+154 |       Column() {
+155 |         Button("encode")
+156 |           .width(200)
+157 |           .onClick((event: ClickEvent) => {
+158 |              this.encodeResult = encode_Uint8Array(this.data)
+159 |           }).margin(10)
+160 |                 
+161 |         Button("decode")
+162 |           .width(200)
+163 |           .onClick((event: ClickEvent) => {
+164 |              const decodeResult = decode_String_toUint8Array(this.encodeResult)
+165 |           }).margin(10)    
+166 | 
+167 |       }
+168 |       .width('100%')
+169 |     }
+170 |     .height('100%')
+171 |   }
+172 | }
+173 | ```
+174 | 
+175 | ## 约束与限制
+176 | 
+177 | 在下述版本验证通过：
+178 | 
+179 |     DevEco Studio 5.0.13.210
+180 |     Cangjie Support Plugin 5.0.13.210
+181 | 
+182 | ## 开源协议
+183 | 
+184 | 本项目基于 [Apache License 2.0](./LICENSE)，请自由的享受和参与开源。
+185 | 
+186 | ## 参与贡献
+187 | 
+188 | 欢迎给我们提交 PR，欢迎给我们提交 Issue，欢迎参与任何形式的贡献。
+--------------------------------------------------------------------------------
+
+library/build-profile.json5
+
+ 1 | {
+ 2 |   "apiType": "stageMode",
+ 3 |   "buildOption": {
+ 4 |     "cangjieOptions": {
+ 5 |       "path": "./src/main/cangjie/cjpm.toml",
+ 6 |       "abiFilters": ["arm64-v8a","x86_64"]
+ 7 |     },
+ 8 |     "arkOptions": {
+ 9 |       "byteCodeHar": false
+10 |     }
+11 |   },
+12 |   "buildOptionSet": [
+13 |     {
+14 |       "name": "release",
+15 |       "arkOptions": {
+16 |         "obfuscation": {
+17 |           "ruleOptions": {
+18 |             "enable": false,
+19 |             "files": [
+20 |               "./obfuscation-rules.txt"
+21 |             ]
+22 |           },
+23 |           "consumerFiles": [
+24 |             "./consumer-rules.txt"
+25 |           ]
+26 |         }
+27 |       },
+28 |     },
+29 |   ],
+30 |   "targets": [
+31 |     {
+32 |       "name": "default"
+33 |     },
+34 |     {
+35 |       "name": "ohosTest"
+36 |     }
+37 |   ]
+38 | }
+--------------------------------------------------------------------------------
+
+library/consumer-rules.txt
+
+--------------------------------------------------------------------------------
+
+library/hvigorfile.ts
+
+1 | import { harTasks } from '@ohos/cangjie-build-support';
+2 | 
+3 | export default {
+4 |     system: harTasks,  /* Built-in plugin of Hvigor. It cannot be modified. */
+5 |     plugins:[]         /* Custom plugin to extend the functionality of Hvigor. */
+6 | }
+--------------------------------------------------------------------------------
+
+library/obfuscation-rules.txt
+
+ 1 | # Define project specific obfuscation rules here.
+ 2 | # You can include the obfuscation configuration files in the current module's build-profile.json5.
+ 3 | #
+ 4 | # For more details, see
+ 5 | #   https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/source-obfuscation-V5
+ 6 | 
+ 7 | # Obfuscation options:
+ 8 | # -disable-obfuscation: disable all obfuscations
+ 9 | # -enable-property-obfuscation: obfuscate the property names
+10 | # -enable-toplevel-obfuscation: obfuscate the names in the global scope
+11 | # -compact: remove unnecessary blank spaces and all line feeds
+12 | # -remove-log: remove all console.* statements
+13 | # -print-namecache: print the name cache that contains the mapping from the old names to new names
+14 | # -apply-namecache: reuse the given cache file
+15 | 
+16 | # Keep options:
+17 | # -keep-property-name: specifies property names that you want to keep
+18 | # -keep-global-name: specifies names that you want to keep in the global scope
+19 | 
+20 | -enable-property-obfuscation
+21 | -enable-toplevel-obfuscation
+22 | -enable-filename-obfuscation
+23 | -enable-export-obfuscation
+--------------------------------------------------------------------------------
+
+library/oh-package.json5
+
+ 1 | {
+ 2 |   "name": "@cangjie-tpc/base64",
+ 3 |   "version": "1.0.0",
+ 4 |   "description": "ArkTS调用Cangjie版base64编解码算法实现。",
+ 5 |   "main": "Index.ets",
+ 6 |   "author": "cangjie-tpc",
+ 7 |   "license": "Apache-2.0",
+ 8 |   "repository": "https://gitcode.com/Cangjie-TPC/base64-cj.git",
+ 9 |   "dependencies": {
+10 |     "libark_interop_loader.so": "file:./src/main/cangjie/loader",
+11 |     "cjhyapiregister": "file:./har/CJHyAPIRegister-v1.0.1.har",
+12 |     "libark_interop_api.so": "file:./src/main/cangjie/ark_interop_api"
+13 |   }
+14 | }
+--------------------------------------------------------------------------------
+
+library/src/main/cangjie/ark_interop_api/ark_interop_api.d.ts
+
+1 | export declare interface CustomLib {
+2 |     toBase64StringArkts(data: string): string
+3 |     fromBase64StringArkts(data: string): string
+4 |     toBase64StringUtf8Arkts(data: ArrayBuffer): string
+5 |     fromBase64StringUtf8Arkts(data: string): ArrayBuffer
+6 |     fromBase64Uint8Array(data: ArrayBuffer): ArrayBuffer
+7 | }
+--------------------------------------------------------------------------------
+
+library/src/main/cangjie/ark_interop_api/oh-package.json5
+
+1 | {
+2 |   "name": "libark_interop_api.so",
+3 |   "types": "./ark_interop_api.d.ts",
+4 |   "version": "1.0.0",
+5 |   "description": ""
+6 | }
+--------------------------------------------------------------------------------
+
+library/src/main/cangjie/cjpm.lock
+
+1 | version = 0
+2 | 
+3 | [requires]
+--------------------------------------------------------------------------------
+
+library/src/main/cangjie/cjpm.toml
+
+ 1 | [target]
+ 2 |   [target.aarch64-linux-ohos]
+ 3 |     compile-option = "-B \"${DEVECO_CANGJIE_HOME}/build-tools/third_party/llvm/bin\" -B \"${DEVECO_OH_NATIVE_HOME}/sysroot/usr/lib/aarch64-linux-ohos\" -L \"${DEVECO_OH_NATIVE_HOME}/sysroot/usr/lib/aarch64-linux-ohos\" -L \"${DEVECO_OH_NATIVE_HOME}/llvm/lib/clang/15.0.4/lib/aarch64-linux-ohos\" -L \"${DEVECO_OH_NATIVE_HOME}/llvm/lib/aarch64-linux-ohos\" --sysroot \"${DEVECO_OH_NATIVE_HOME}/sysroot\""
+ 4 |     [target.aarch64-linux-ohos.bin-dependencies]
+ 5 |       path-option = [ "${AARCH64_LIBS}", "${AARCH64_MACRO_LIBS}", "${AARCH64_TPC_LIBS}", "${DEVECO_CANGJIE_HOME}/linux_ohos_aarch64_llvm/static/stdx" ]
+ 6 | 
+ 7 | [package]
+ 8 |   cjc-version = "1.1.0"
+ 9 |   compile-option = "--dy-std"
+10 |   description = "CangjieUI Application"
+11 |   link-option = ""
+12 |   name = "cangjie_base64"
+13 |   output-type = "dynamic"
+14 |   src-dir = "."
+15 |   target-dir = ""
+16 |   version = "1.0.0"
+17 |   [package.package-configuration]
+18 |   [package.scripts]
+19 | 
+20 | [profile]
+21 |   [profile.build]
+22 |     incremental = true
+23 |     lto = ""
+24 |   [profile.customized-option]
+25 |     debug = "-g -Woff all -Won apilevel-check"
+26 |     release = "--fast-math -O2 -s -Woff all -Won apilevel-check"
+27 |   [profile.test]
+--------------------------------------------------------------------------------
+
+library/src/main/cangjie/index.cj
+
+ 1 | /*
+ 2 |  * Copyright (c) Huawei Technologies Co., Ltd. 2022-2024. All rights resvered.
+ 3 |  */
+ 4 | package cangjie_base64
+ 5 | 
+ 6 | import ohos.ark_interop.*
+ 7 | import ohos.ark_interop_macro.*
+ 8 | import ohos.ark_interop_helper.*
+ 9 | import ohos.base.*
+10 | import stdx.encoding.base64.*
+11 | 
+12 | @Interop[ArkTS]
+13 | public func toBase64StringArkts(data: String): String {
+14 |     return toBase64String(data.toArray())
+15 | }
+16 | 
+17 | @Interop[ArkTS]
+18 | public func fromBase64StringArkts(data: String): String {
+19 |     var opArr: Option<Array<Byte>> = fromBase64String(data)
+20 |     var result = match (opArr) {
+21 |         case Some(s) => unsafe { String.fromUtf8Unchecked(s)}
+22 |         case None => ''
+23 |     }
+24 |     return result
+25 | }
+26 | 
+27 | @Interop[ArkTS]
+28 | public func toBase64StringUtf8Arkts(data: Array<Byte>): String {
+29 |     return toBase64String(data)
+30 | }
+31 | 
+32 | @Interop[ArkTS]
+33 | public func fromBase64StringUtf8Arkts(data: String): Array<Byte> {
+34 |     var opArr: Option<Array<Byte>> = fromBase64String(data)
+35 |     var result: Array<Byte> = match (opArr) {
+36 |         case Some(s) => s
+37 |         case None => Array<Byte>()
+38 |     }
+39 |     return result
+40 | }
+41 | 
+42 | @Interop[ArkTS]
+43 | public func fromBase64Uint8Array(data: Array<Byte>): Array<Byte> {
+44 |     var opArr: Option<Array<Byte>> = fromBase64String(String.fromUtf8(data))
+45 |     var result: Array<Byte> = match (opArr) {
+46 |         case Some(s) => s
+47 |         case None => Array<Byte>()
+48 |     }
+49 |     return result
+50 | }
+--------------------------------------------------------------------------------
+
+library/src/main/cangjie/loader/libark_interop_loader.d.ts
+
+1 | export declare function requireCJLib(name: string): Object
+--------------------------------------------------------------------------------
+
+library/src/main/cangjie/loader/oh-package.json5
+
+1 | {
+2 |   "name": "libark_interop_loader.so",
+3 |   "types": "./libark_interop_loader.d.ts",
+4 |   "version": "1.0.0",
+5 |   "description": ""
+6 | }
+--------------------------------------------------------------------------------
+
+library/src/main/cangjie/types/libcangjie_base64/Index.d.ts
+
+ 1 | 
+ 2 | export declare function toBase64StringArkts(data: string): string
+ 3 | 
+ 4 | export declare function fromBase64StringArkts(data: string): string
+ 5 | 
+ 6 | export declare function toBase64StringUtf8Arkts(data: ArrayBuffer): string
+ 7 | 
+ 8 | export declare function fromBase64StringUtf8Arkts(data: string): ArrayBuffer
+ 9 | 
+10 | export declare function fromBase64Uint8Array(data: ArrayBuffer): ArrayBuffer
+--------------------------------------------------------------------------------
+
+library/src/main/cangjie/types/libcangjie_base64/oh-package.json5
+
+1 | {
+2 |   "name": "libcangjie_base64.so",
+3 |   "types": "./Index.d.ts",
+4 |   "version": "1.0.0",
+5 |   "description": ""
+6 | }
+--------------------------------------------------------------------------------
+
+library/src/main/ets/components/MainPage.ets
+
+ 1 | /*
+ 2 |  * Copyright (c) Huawei Technologies Co., Ltd. 2022-2024. All rights resvered.
+ 3 |  */
+ 4 | import { requireCJLib } from "libark_interop_loader.so";
+ 5 | import { CustomLib } from "libark_interop_api.so";
+ 6 | 
+ 7 | 
+ 8 | const cjlib = requireCJLib("libcangjie_base64.so") as CustomLib
+ 9 | 
+10 | export function encode_Uint8Array(data: Uint8Array): string {
+11 |   return cjlib.toBase64StringUtf8Arkts(data)
+12 | }
+13 | 
+14 | export function encode_String(data: string): string {
+15 |   return cjlib.toBase64StringArkts(data)
+16 | }
+17 | 
+18 | export function decode_string(data: string): string {
+19 |   return cjlib.fromBase64StringArkts(data)
+20 | }
+21 | 
+22 | export function decode_String_toUint8Array(data: string): Uint8Array {
+23 |   return new Uint8Array(cjlib.fromBase64StringUtf8Arkts(data))
+24 | }
+25 | 
+26 | export function decode_Uint8Array(data: Uint8Array): Uint8Array {
+27 |   return  new Uint8Array(cjlib.fromBase64Uint8Array(data))
+28 | }
+--------------------------------------------------------------------------------
+
+library/src/main/module.json5
+
+1 | {
+2 |   "module": {
+3 |     "name": "library",
+4 |     "type": "har",
+5 |     "deviceTypes": [
+6 |       "default"
+7 |     ]
+8 |   }
+9 | }
+--------------------------------------------------------------------------------
+
+library/src/main/resources/base/element/string.json
+
+1 | {
+2 |   "string": [
+3 |     {
+4 |       "name": "page_show",
+5 |       "value": "page from package"
+6 |     }
+7 |   ]
+8 | }
+--------------------------------------------------------------------------------
+
+library/src/ohosTest/ets/test/Ability.test.ets
+
+ 1 | import { hilog } from '@kit.PerformanceAnalysisKit';
+ 2 | import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
+ 3 | 
+ 4 | export default function abilityTest() {
+ 5 |   describe('ActsAbilityTest', () => {
+ 6 |     // Defines a test suite. Two parameters are supported: test suite name and test suite function.
+ 7 |     beforeAll(() => {
+ 8 |       // Presets an action, which is performed only once before all test cases of the test suite start.
+ 9 |       // This API supports only one parameter: preset action function.
+10 |     })
+11 |     beforeEach(() => {
+12 |       // Presets an action, which is performed before each unit test case starts.
+13 |       // The number of execution times is the same as the number of test cases defined by **it**.
+14 |       // This API supports only one parameter: preset action function.
+15 |     })
+16 |     afterEach(() => {
+17 |       // Presets a clear action, which is performed after each unit test case ends.
+18 |       // The number of execution times is the same as the number of test cases defined by **it**.
+19 |       // This API supports only one parameter: clear action function.
+20 |     })
+21 |     afterAll(() => {
+22 |       // Presets a clear action, which is performed after all test cases of the test suite end.
+23 |       // This API supports only one parameter: clear action function.
+24 |     })
+25 |     it('assertContain', 0, () => {
+26 |       // Defines a test case. This API supports three parameters: test case name, filter parameter, and test case function.
+27 |       hilog.info(0x0000, 'testTag', '%{public}s', 'it begin');
+28 |       let a = 'abc';
+29 |       let b = 'b';
+30 |       // Defines a variety of assertion methods, which are used to declare expected boolean conditions.
+31 |       expect(a).assertContain(b);
+32 |       expect(a).assertEqual(a);
+33 |     })
+34 |   })
+35 | }
+--------------------------------------------------------------------------------
+
+library/src/ohosTest/ets/test/List.test.ets
+
+1 | import abilityTest from './Ability.test';
+2 | 
+3 | export default function testsuite() {
+4 |   abilityTest();
+5 | }
+--------------------------------------------------------------------------------
+
+library/src/ohosTest/module.json5
+
+ 1 | {
+ 2 |   "module": {
+ 3 |     "name": "library_test",
+ 4 |     "type": "feature",
+ 5 |     "deviceTypes": [
+ 6 |       "default"
+ 7 |     ],
+ 8 |     "deliveryWithInstall": true,
+ 9 |     "installationFree": false
+10 |   }
+11 | }
+--------------------------------------------------------------------------------
+
+library/src/test/List.test.ets
+
+1 | import localUnitTest from './LocalUnit.test';
+2 | 
+3 | export default function testsuite() {
+4 |   localUnitTest();
+5 | }
+--------------------------------------------------------------------------------
+
+library/src/test/LocalUnit.test.ets
+
+ 1 | import { describe, beforeAll, beforeEach, afterEach, afterAll, it, expect } from '@ohos/hypium';
+ 2 | 
+ 3 | export default function localUnitTest() {
+ 4 |   describe('localUnitTest', () => {
+ 5 |     // Defines a test suite. Two parameters are supported: test suite name and test suite function.
+ 6 |     beforeAll(() => {
+ 7 |       // Presets an action, which is performed only once before all test cases of the test suite start.
+ 8 |       // This API supports only one parameter: preset action function.
+ 9 |     });
+10 |     beforeEach(() => {
+11 |       // Presets an action, which is performed before each unit test case starts.
+12 |       // The number of execution times is the same as the number of test cases defined by **it**.
+13 |       // This API supports only one parameter: preset action function.
+14 |     });
+15 |     afterEach(() => {
+16 |       // Presets a clear action, which is performed after each unit test case ends.
+17 |       // The number of execution times is the same as the number of test cases defined by **it**.
+18 |       // This API supports only one parameter: clear action function.
+19 |     });
+20 |     afterAll(() => {
+21 |       // Presets a clear action, which is performed after all test cases of the test suite end.
+22 |       // This API supports only one parameter: clear action function.
+23 |     });
+24 |     it('assertContain', 0, () => {
+25 |       // Defines a test case. This API supports three parameters: test case name, filter parameter, and test case function.
+26 |       let a = 'abc';
+27 |       let b = 'b';
+28 |       // Defines a variety of assertion methods, which are used to declare expected boolean conditions.
+29 |       expect(a).assertContain(b);
+30 |       expect(a).assertEqual(a);
+31 |     });
+32 |   });
+33 | }
+--------------------------------------------------------------------------------
+
+oh-package.json5
+
+ 1 | {
+ 2 |   "modelVersion": "6.0.2",
+ 3 |   "description": "Please describe the basic information.",
+ 4 |   "dependencies": {
+ 5 |     "base64": "^1.1.0",
+ 6 |     "@ohos/base64": "^2.0.2"
+ 7 |   },
+ 8 |   "devDependencies": {
+ 9 |     "@ohos/hypium": "1.0.21",
+10 |     "@ohos/hamock": "1.0.0"
+11 |   }
+12 | }
+--------------------------------------------------------------------------------
+
+请介绍一下项目结构，以及如何测试、有哪些包管理配置、有哪些构建选项等。另外指出哪些地方已经过时了（例如使用了HarmonyOS 5 API而不是6）

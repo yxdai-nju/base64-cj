@@ -1,0 +1,14 @@
+{
+  "name": "@cangjie-tpc/base64",
+  "version": "1.0.0",
+  "description": "ArkTS调用Cangjie版base64编解码算法实现。",
+  "main": "Index.ets",
+  "author": "cangjie-tpc",
+  "license": "Apache-2.0",
+  "repository": "https://gitcode.com/Cangjie-TPC/base64-cj.git",
+  "dependencies": {
+    "libark_interop_loader.so": "file:./src/main/cangjie/loader",
+    "cjhyapiregister": "file:./har/CJHyAPIRegister-v1.0.1.har",
+    "libark_interop_api.so": "file:./src/main/cangjie/ark_interop_api"
+  }
+}

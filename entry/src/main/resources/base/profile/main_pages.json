@@ -1,0 +1,10 @@
+{
+  "src": [
+    "pages/Index",
+    "pages/Base64Example",
+    "pages/Base64JsExample",
+    "pages/CangjieBase64Example",
+    "pages/CangjieBase64Utf8Example",
+    "pages/OhosBase64Example"
+  ]
+}
