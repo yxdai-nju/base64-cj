@@ -7,8 +7,6 @@
   "license": "Apache-2.0",
   "repository": "https://gitcode.com/Cangjie-TPC/base64-cj.git",
   "dependencies": {
-    "libark_interop_loader.so": "file:./src/main/cangjie/loader",
-    "cjhyapiregister": "file:./har/CJHyAPIRegister-v1.0.1.har",
-    "libark_interop_api.so": "file:./src/main/cangjie/ark_interop_api"
+    "libcangjie_base64.so": "file:./src/main/cangjie/types/libcangjie_base64",
   }
 }

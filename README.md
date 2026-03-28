@@ -176,8 +176,8 @@ struct CangjieBase64Example {
 
 在下述版本验证通过：
 
-    DevEco Studio 5.0.13.210
-    Cangjie Support Plugin 5.0.13.210
+    DevEco Studio 6.0.2.642
+    Cangjie Support Plugin 6.0.2.640
 
 ## 开源协议
 
